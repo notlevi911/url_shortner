@@ -1,14 +1,22 @@
-from fastapi import APIRouter
-from app.models import URLRequest, URLResponse
+# backend/app/routes.py
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import RedirectResponse
+from .models import URLRequest, URLResponse
+from .database import urls_collection
+import uuid
 
 router = APIRouter()
 
 @router.post("/shorten", response_model=URLResponse)
 async def shorten_url(payload: URLRequest):
-    # TODO: store in DB and return short URL
-    return {"short_url": "https://sho.rt/abc123"}
+    slug = uuid.uuid4().hex[:6]
+    await urls_collection.insert_one({"slug": slug, "long_url": str(payload.long_url)})
+    return {"short_url": f"http://localhost:8000/{slug}"}
 
-@router.get("/expand/{short_code}")
-async def expand_url(short_code: str):
-    # TODO: fetch original URL from DB
-    return {"original_url": "https://example.com"}
+
+@router.get("/{slug}")
+async def redirect_url(slug: str):
+    url_entry = await urls_collection.find_one({"slug": slug})
+    if not url_entry:
+        raise HTTPException(status_code=404, detail="URL not found")
+    return RedirectResponse(url=url_entry["long_url"])

@@ -7,7 +7,7 @@ function App() {
 
   const handleSubmit = async () => {
     const res = await axios.post("http://localhost:8000/shorten", {
-      original_url: url,
+      long_url: url,
     });
     setShortUrl(res.data.short_url);
   };

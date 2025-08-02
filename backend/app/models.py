@@ -1,7 +1,8 @@
-from pydantic import BaseModel
+# backend/app/models.py
+from pydantic import BaseModel, HttpUrl
 
 class URLRequest(BaseModel):
-    original_url: str
+    long_url: HttpUrl
 
 class URLResponse(BaseModel):
     short_url: str
