@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import axios from "axios";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [url, setUrl] = useState("");
+  const [shortUrl, setShortUrl] = useState("");
+
+  const handleSubmit = async () => {
+    const res = await axios.post("http://localhost:8000/shorten", {
+      original_url: url,
+    });
+    setShortUrl(res.data.short_url);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+    <div style={{ padding: "2rem" }}>
+      <h1>URL Shortener</h1>
+      <input
+        type="text"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        placeholder="Enter your long URL"
+      />
+      <button onClick={handleSubmit}>Shorten</button>
+      {shortUrl && (
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          Short URL: <a href={shortUrl}>{shortUrl}</a>
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
