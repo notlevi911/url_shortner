@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from app.utils.google_oauth import oauth, get_google_user_info, create_or_get_google_user, generate_google_token
 from app.schemas.userSchema import TokenSchema
-import jwt
+from jose import jwt, InvalidTokenError
 import httpx
 
 google_auth_router = APIRouter()
@@ -48,7 +48,7 @@ async def google_token_exchange(request: Request):
         try:
             # Decode without verification for now
             decoded_credential = jwt.decode(google_credential, options={"verify_signature": False})
-        except jwt.InvalidTokenError:
+        except InvalidTokenError:
             raise HTTPException(status_code=400, detail="Invalid Google credential")
         
         # Extract user info from the credential
