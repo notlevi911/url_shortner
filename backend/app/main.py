@@ -21,7 +21,12 @@ app.add_middleware(
 @app.get("/health")
 def health_check():
     """Health check endpoint"""
-    return {"status": "ok"}
+    return {"status": "ok", "message": "API is running"}
+
+@app.get("/ping")
+def ping():
+    """Simple ping endpoint for health checks"""
+    return {"pong": "ok"}
 
 # Include routers
 app.include_router(url_router, prefix="/api/v1")
