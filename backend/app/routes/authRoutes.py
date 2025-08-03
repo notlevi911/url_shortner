@@ -1,5 +1,4 @@
-from fastapi import APIRouter, HTTPException, status, Depends, Header
-from pymongo.collection import Collection
+from fastapi import APIRouter, HTTPException, Depends, Header
 from bson import ObjectId
 from typing import Optional
 

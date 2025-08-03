@@ -4,6 +4,7 @@ from app.utils.google_oauth import oauth, get_google_user_info, create_or_get_go
 from app.schemas.userSchema import TokenSchema
 import jwt
 import httpx
+import os
 
 google_auth_router = APIRouter()
 
@@ -23,7 +24,7 @@ async def google_callback(request: Request):
         jwt_token = await generate_google_token(user_data)
         
         # Redirect to frontend with token
-        frontend_url = "http://localhost:5173"
+        frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
         return RedirectResponse(
             url=f"{frontend_url}?token={jwt_token}&user_id={user_data['_id']}"
         )
