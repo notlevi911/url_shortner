@@ -5,4 +5,4 @@ class URLRequest(BaseModel):
     long_url: HttpUrl
 
 class URLResponse(BaseModel):
-    short_url: str
+    slug: str
