@@ -4,6 +4,7 @@ import { useAuth } from "./context/AuthContext";
 import AuthForm from "./components/AuthForm";
 import UserDashboard from "./components/UserDashboard";
 import QRCode from "qrcode";
+import config from "./config";
 import "./App.css";
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
     
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post("http://localhost:8000/api/v1/shorten", {
+      const res = await axios.post(`${config.API_BASE_URL}${config.API_ENDPOINTS.SHORTEN}`, {
         long_url: url,
       }, {
         headers: { Authorization: `Bearer ${token}` }

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import QRCode from 'qrcode';
+import config from '../config';
 
 const UserDashboard = () => {
   const { user, token } = useAuth();
@@ -25,7 +26,7 @@ const UserDashboard = () => {
   const fetchUserUrls = async () => {
     try {
       console.log('Making request to fetch URLs with token:', token ? 'present' : 'missing');
-      const response = await axios.get('http://localhost:8000/api/v1/my-urls', {
+      const response = await axios.get(`${config.API_BASE_URL}${config.API_ENDPOINTS.MY_URLS}`, {
         headers: { 
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -84,7 +85,7 @@ const UserDashboard = () => {
 
   const deleteUrl = async (urlId) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/delete/${urlId}`, {
+      await axios.delete(`${config.API_BASE_URL}${config.API_ENDPOINTS.DELETE_URL}/${urlId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUrls(urls.filter(url => url.id !== urlId));

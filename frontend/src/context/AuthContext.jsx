@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import config from '../config';
 
 const AuthContext = createContext();
 
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const verifyToken = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/v1/auth/me', {
+      const response = await axios.get(`${config.API_BASE_URL}${config.API_ENDPOINTS.ME}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUser(response.data);
@@ -42,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/auth/login', {
+      const response = await axios.post(`${config.API_BASE_URL}${config.API_ENDPOINTS.LOGIN}`, {
         email,
         password
       });
@@ -52,7 +53,7 @@ export const AuthProvider = ({ children }) => {
       setToken(access_token);
       
       // Get user info after login
-      const userResponse = await axios.get('http://localhost:8000/api/v1/auth/me', {
+      const userResponse = await axios.get(`${config.API_BASE_URL}${config.API_ENDPOINTS.ME}`, {
         headers: { Authorization: `Bearer ${access_token}` }
       });
       setUser(userResponse.data);
@@ -69,7 +70,7 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (username, email, password) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/auth/signup', {
+      const response = await axios.post(`${config.API_BASE_URL}${config.API_ENDPOINTS.SIGNUP}`, {
         username,
         email,
         password
@@ -80,7 +81,7 @@ export const AuthProvider = ({ children }) => {
       setToken(access_token);
       
       // Get user info after signup
-      const userResponse = await axios.get('http://localhost:8000/api/v1/auth/me', {
+      const userResponse = await axios.get(`${config.API_BASE_URL}${config.API_ENDPOINTS.ME}`, {
         headers: { Authorization: `Bearer ${access_token}` }
       });
       setUser(userResponse.data);
@@ -97,7 +98,7 @@ export const AuthProvider = ({ children }) => {
 
   const loginWithGoogle = async (credential) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/auth/google/token', {
+      const response = await axios.post(`${config.API_BASE_URL}${config.API_ENDPOINTS.GOOGLE_TOKEN}`, {
         access_token: credential
       });
       
