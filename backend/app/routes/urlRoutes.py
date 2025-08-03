@@ -22,6 +22,11 @@ BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
 async def test_route():
     return {"message": "URL router is working"}
 
+# Health check endpoint
+@url_router.get("/health")
+def health_check():
+    return {"status": "ok"}
+
 async def get_user_from_token(authorization: Optional[str] = Header(None)):
     print(f"Received authorization header: {authorization}")
     if not authorization or not authorization.startswith("Bearer "):
