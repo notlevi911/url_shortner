@@ -19,8 +19,11 @@ BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
 
 # Test route to verify router is working
 @url_router.get("/test")
-@url_router.head("/test")
 async def test_route():
+    return {"message": "URL router is working"}
+
+@url_router.head("/test")
+async def test_route_head():
     return {"message": "URL router is working"}
 
 # Health check endpoint
