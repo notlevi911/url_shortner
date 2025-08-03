@@ -6,7 +6,7 @@ from app.database import user_collection
 from app.utils.auth import create_access_token
 from bson import ObjectId
 
-# Google OAuth configuration
+# Google OAuth configuration hahah lmao 
 config = Config('.env')
 oauth = OAuth(config)
 
