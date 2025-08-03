@@ -4,12 +4,9 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - ./backend/.env
+      - ./.env
     volumes:
       - ./backend:/app
-    depends_on:
-      mongo:
-        condition: service_healthy
     restart: unless-stopped
 
   frontend:
@@ -19,22 +16,3 @@ services:
     volumes:
       - ./frontend:/app
     restart: unless-stopped
-
-  mongo:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-    environment:
-      - MONGO_INITDB_DATABASE=urlshortener
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-    restart: unless-stopped
-
-volumes:
-  mongodb_data:
