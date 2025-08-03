@@ -25,13 +25,9 @@ app.include_router(google_auth_router, prefix="/api/v1/auth/google", tags=["goog
 app.include_router(redirect_router)  # Mount at root for clean URLs - must be last
 
 @app.get("/health")
-async def health_check():
+def health_check():
     """Health check endpoint"""
-    return {
-        "status": "healthy",
-        "message": "URL Shortener API is running",
-        "timestamp": datetime.utcnow().isoformat()
-    }
+    return {"status": "ok"}
 
 @app.on_event("startup")
 async def startup_event():
