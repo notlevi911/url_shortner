@@ -132,7 +132,7 @@ const UserDashboard = () => {
                   <strong>Original:</strong> {url.original_url}
                 </div>
                 <div className="url-short">
-                  <strong>Short:</strong> {url.short_url}
+                  <strong>Short:</strong> {`${config.API_BASE_URL}/${url.slug}`}
                 </div>
                 <div className="url-date">
                   Created: {new Date(url.created_at).toLocaleDateString()}
@@ -140,13 +140,13 @@ const UserDashboard = () => {
               </div>
               <div className="url-actions">
                 <button 
-                  onClick={(event) => copyToClipboard(url.short_url, event)}
+                  onClick={(event) => copyToClipboard(`${config.API_BASE_URL}/${url.slug}`, event)}
                   className="copy-btn-small"
                 >
                   📋 Copy
                 </button>
                 <button 
-                  onClick={() => generateQR(url.short_url)}
+                  onClick={() => generateQR(`${config.API_BASE_URL}/${url.slug}`)}
                   className="qr-btn-small"
                 >
                   📱 QR

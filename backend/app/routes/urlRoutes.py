@@ -49,7 +49,7 @@ async def shorten_url(payload: URLRequest, user_id: str = Depends(get_user_from_
     }
     await urls_collection.insert_one(url_data)
     print(f"URL shortened successfully: {slug}")
-    return {"short_url": f"{BASE_URL}/{slug}"}
+    return {"slug": slug}
 
 @url_router.get("/my-urls")
 async def get_user_urls(user_id: str = Depends(get_user_from_token)):
@@ -60,7 +60,7 @@ async def get_user_urls(user_id: str = Depends(get_user_from_token)):
         {
             "id": str(url["_id"]),
             "original_url": url["long_url"],
-            "short_url": f"{BASE_URL}/{url['slug']}",
+            "slug": url["slug"],
             "created_at": url["created_at"]
         }
         for url in urls

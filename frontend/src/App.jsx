@@ -39,7 +39,7 @@ function App() {
       }, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setShortUrl(res.data.short_url);
+      setShortUrl(`${config.API_BASE_URL}/${res.data.slug}`);
       setUrl(""); // Clear input after successful shortening
     } catch (err) {
       setError("Failed to shorten URL. Please try again.");
