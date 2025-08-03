@@ -6,7 +6,7 @@ import asyncio
 
 load_dotenv()
 
-MONGO_URL = os.getenv("MONGO_URI", "mongodb://mongo:27017")
+MONGO_URL = os.getenv("MONGO_URI", "mongodb+srv://soubhagya:soujanya2011%40%23@cluster0.jc57aut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DATABASE_NAME = os.getenv("DATABASE_NAME", "urlshortener")
 
 print(f"Connecting to MongoDB at: {MONGO_URL}")
