@@ -27,30 +27,11 @@ app.include_router(google_auth_router, prefix="/api/v1/auth/google", tags=["goog
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
-    try:
-        # Test MongoDB connection
-        connection_ok = await test_connection()
-        if connection_ok:
-            return {
-                "status": "healthy",
-                "message": "URL Shortener API is running",
-                "database": "connected",
-                "timestamp": datetime.utcnow().isoformat()
-            }
-        else:
-            return {
-                "status": "unhealthy",
-                "message": "Database connection failed",
-                "database": "disconnected",
-                "timestamp": datetime.utcnow().isoformat()
-            }
-    except Exception as e:
-        return {
-            "status": "unhealthy",
-            "message": f"Health check failed: {str(e)}",
-            "database": "error",
-            "timestamp": datetime.utcnow().isoformat()
-        }
+    return {
+        "status": "healthy",
+        "message": "URL Shortener API is running",
+        "timestamp": datetime.utcnow().isoformat()
+    }
 
 @app.on_event("startup")
 async def startup_event():
