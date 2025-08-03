@@ -5,6 +5,7 @@ from app.routes import url_router, auth_router, google_auth_router
 from app.routes.urlRoutes import redirect_router
 from app.database import test_connection
 import asyncio
+from datetime import datetime
 
 app = FastAPI(title="URL Shortener API", version="1.0.0")
 
@@ -34,21 +35,21 @@ async def health_check():
                 "status": "healthy",
                 "message": "URL Shortener API is running",
                 "database": "connected",
-                "timestamp": "2025-08-03T12:00:00Z"
+                "timestamp": datetime.utcnow().isoformat()
             }
         else:
             return {
                 "status": "unhealthy",
                 "message": "Database connection failed",
                 "database": "disconnected",
-                "timestamp": "2025-08-03T12:00:00Z"
+                "timestamp": datetime.utcnow().isoformat()
             }
     except Exception as e:
         return {
             "status": "unhealthy",
             "message": f"Health check failed: {str(e)}",
             "database": "error",
-            "timestamp": "2025-08-03T12:00:00Z"
+            "timestamp": datetime.utcnow().isoformat()
         }
 
 @app.on_event("startup")
