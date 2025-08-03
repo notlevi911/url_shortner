@@ -62,6 +62,21 @@ The application uses a custom shortening algorithm:
 #### Health Check
 - `GET /api/v1/test` - Service health check (supports HEAD requests)
 
+## Environment Variables
+
+### Backend
+- `MONGO_URI` - MongoDB connection string
+- `JWT_SECRET_KEY` - JWT signing key
+- `GOOGLE_CLIENT_ID` - Google OAuth client ID
+- `GOOGLE_CLIENT_SECRET` - Google OAuth client secret
+- `FRONTEND_URL` - Frontend application URL
+- `BASE_URL` - Backend base URL
+
+### Frontend
+- `VITE_API_BASE_URL` - Backend API URL
+- `VITE_FRONTEND_URL` - Frontend URL
+- `VITE_GOOGLE_CLIENT_ID` - Google OAuth client ID
+
 ## Development Setup
 
 ### Backend
