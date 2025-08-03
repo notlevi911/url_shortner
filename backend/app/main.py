@@ -18,16 +18,16 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
+@app.get("/health")
+def health_check():
+    """Health check endpoint"""
+    return {"status": "ok"}
+
 # Include routers
 app.include_router(url_router, prefix="/api/v1")
 app.include_router(auth_router, prefix="/api/v1/auth", tags=["authentication"])
 app.include_router(google_auth_router, prefix="/api/v1/auth/google", tags=["google-auth"])
 app.include_router(redirect_router)  # Mount at root for clean URLs - must be last
-
-@app.get("/health")
-def health_check():
-    """Health check endpoint"""
-    return {"status": "ok"}
 
 @app.on_event("startup")
 async def startup_event():
