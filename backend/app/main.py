@@ -19,10 +19,10 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(redirect_router)  # Mount at root for clean URLs
 app.include_router(url_router, prefix="/api/v1")
 app.include_router(auth_router, prefix="/api/v1/auth", tags=["authentication"])
 app.include_router(google_auth_router, prefix="/api/v1/auth/google", tags=["google-auth"])
+app.include_router(redirect_router)  # Mount at root for clean URLs - must be last
 
 @app.get("/health")
 async def health_check():
