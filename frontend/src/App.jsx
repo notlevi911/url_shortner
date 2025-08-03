@@ -236,6 +236,11 @@ function App() {
           )}
         </div>
       </div>
+      
+      {/* Watermark - Desktop Only */}
+      <div className="watermark">
+        Made with love by Levi <span className="heart">❤️</span>
+      </div>
     </div>
   );
 }

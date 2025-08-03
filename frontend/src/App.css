@@ -741,3 +741,49 @@ body {
     flex-direction: column;
   }
 }
+
+/* Watermark - Desktop Only */
+.watermark {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem;
+  font-weight: 500;
+  z-index: 50;
+  transition: all 0.3s ease;
+  user-select: none;
+  pointer-events: none;
+}
+
+.watermark:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.watermark .heart {
+  color: #ff6b6b;
+  margin-left: 4px;
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Hide watermark on mobile */
+@media (max-width: 768px) {
+  .watermark {
+    display: none;
+  }
+}
